@@ -5,4 +5,4 @@ const createUserController = new CreateUserController()
 
 export const userRoutes = Router()
 
-userRoutes.post("/", createUserController.handle)
+userRoutes.post("/new", createUserController.handle)

@@ -4,17 +4,7 @@ import { User } from "@prisma/client"
 import { AppError } from "../../../../errors/appError";
 
 export class CreateUserUseCase {
-  async execute({ name, input_value, output_value }: CreateUserInterface): Promise<any> {
-    
-    const userAlreadyExists = await prisma.user.findUnique({
-      where: {
-        id: 5
-      }
-    })
-
-    if(userAlreadyExists){
-      throw new AppError("User already exists!", 400)
-    }
+  async execute({ name, input_value, output_value }: CreateUserInterface): Promise<User> {
 
     //Create new user
     const user = await prisma.user.create({
