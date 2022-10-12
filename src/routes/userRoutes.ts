@@ -1,6 +1,6 @@
-import { CreateUserController } from '../modules/users/createUser';
 import { Router } from "express";
-import { VerifyTokenController } from '../modules/auth/verifyToken';
+import { VerifyTokenController } from "../modules/auth/useCases/verifyToken/verifyTokenController";
+import { CreateUserController } from "../modules/users/useCases/createUser/createTransactionController";
 
 const createUserController = new CreateUserController()
 const verifyTokenController = new VerifyTokenController()

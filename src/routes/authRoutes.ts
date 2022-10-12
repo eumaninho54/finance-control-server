@@ -1,9 +1,9 @@
-import { GetAdminController } from './../modules/auth/getAdmin/index';
-import { LoginController } from './../modules/auth/login';
+import { GetAdminController } from '../modules/auth/useCases/getAdmin/getAdminController';
+import { LoginAdminController } from '../modules/auth/useCases/loginAdmin/loginAdminController';
 import { Router } from "express";
-import { VerifyTokenController } from '../modules/auth/verifyToken';
+import { VerifyTokenController } from '../modules/auth/useCases/verifyToken/verifyTokenController';
 
-const loginController = new LoginController()
+const loginAdminController = new LoginAdminController()
 const verifyTokenController = new VerifyTokenController()
 const getAdminController = new GetAdminController()
 
@@ -11,4 +11,4 @@ export const authRoutes = Router()
 
 authRoutes.get("/", verifyTokenController.handle, getAdminController.handle)
 
-authRoutes.post("/login", loginController.handle)
+authRoutes.post("/login", loginAdminController.handle)

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { prisma } from "../../../config/prismaClient";
-import { AppError } from "../../../errors/appError";
-import { ICreateTransaction } from "../dtos/createTransactionInterface";
+import * as crypto from "crypto-js";
+import * as jwt from "jsonwebtoken";
+import { CreateTransactionDTO } from "../../dtos/createTransactionDTO";
+import { prisma } from "../../../../config/prismaClient";
+import { AppError } from "../../../../errors/appError";
 
-
-export class CreateTransactionController {
-  async handle(req: Request, res: Response) {
-    const { id, input_value, output_value }: ICreateTransaction = req.body;
-
+export class CreateTransactionUseCase {
+  async execute({ id, input_value, output_value }: CreateTransactionDTO) {
+    
     //Verify if exist user with param id
     const userExists = await prisma.user.findUnique({
       where: {
@@ -32,6 +32,6 @@ export class CreateTransactionController {
       },
     });
 
-    return res.status(201).json(transaction);
+    return transaction
   }
 }

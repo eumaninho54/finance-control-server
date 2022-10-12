@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
-import { AppError } from "../../../errors/appError";
-import { ILogin } from "../dtos/loginDTO";
+import { AppError } from "../../../../errors/appError";
 import * as crypto from "crypto-js";
 import * as jwt from "jsonwebtoken";
+import { LoginAdminDTO } from "../../dtos/loginAdminDTO";
 
-export class AdminController {
-  async handle(req: Request, res: Response) {
-    const { username, password }: ILogin = req.body;
-
+export class LoginAdminUseCase {
+  async execute({ username, password }: LoginAdminDTO) {
     const hashPassword = crypto.HmacSHA1(password, "password").toString()
 
     //Verify if exist user with param id
@@ -17,10 +15,12 @@ export class AdminController {
 
     const token = jwt.sign({username: username}, process.env.SECRET, {})
 
-    return res.status(201).json({
+    const admin = {
       username: username,
       auth: true,
       token: token
-    });
+    }
+
+    return admin
   }
 }
