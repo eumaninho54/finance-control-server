@@ -15,7 +15,6 @@ export class VerifyTokenController {
         throw new AppError("Failed to authenticate token!");
       }
 
-      req.params.id = decoded.id
       req.params.token = token
       next()
     })

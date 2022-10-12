@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../../../config/prismaClient";
 import { AppError } from "../../../errors/appError";
-import { ICreateTransaction } from "../models/createTransactionInterface";
+import { ICreateTransaction } from "../dtos/createTransactionInterface";
 
 
 export class CreateTransactionController {

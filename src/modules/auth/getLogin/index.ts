@@ -4,7 +4,7 @@ import { ILogin } from "../dtos/loginDTO";
 import * as crypto from "crypto-js";
 import * as jwt from "jsonwebtoken";
 
-export class LoginController {
+export class AdminController {
   async handle(req: Request, res: Response) {
     const { username, password }: ILogin = req.body;
 

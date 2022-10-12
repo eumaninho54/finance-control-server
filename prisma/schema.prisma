@@ -23,7 +23,7 @@ model Transaction {
   user         User    @relation("userTransactions", fields: [userId], references: [id])
   userId       Int
   input_value  Decimal
-  output_value Decimal 
+  output_value Decimal
 
   @@map("transitions")
 }

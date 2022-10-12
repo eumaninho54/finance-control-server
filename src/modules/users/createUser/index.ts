@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../../../config/prismaClient";
-import { CreateUserInterface } from "../models/createUserInterface";
+import { CreateUserInterface } from "../dtos/createUserInterface";
 
 export class CreateUserController {
   async handle(req: Request, res: Response) {

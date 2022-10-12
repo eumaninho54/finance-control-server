@@ -15,7 +15,7 @@ app.use(routes);
 app.use(cors());
 
 // Error Handling
-app.use((err: Error, request: express.Request, response: Response, next: NextFunction) => {
+app.use((err: Error, request: express.Request, response: Response) => {
   if(err instanceof AppError){
     return response.status(err.statusCode).json({
       status: "error",
@@ -29,4 +29,4 @@ app.use((err: Error, request: express.Request, response: Response, next: NextFun
   })
 })
 
-app.listen(process.env.PORT || 3333, () => console.log("MEU PAU"));
+app.listen(process.env.PORT || 3333);
