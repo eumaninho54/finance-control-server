@@ -3,12 +3,14 @@ import { VerifyTokenDTO } from "../../dtos/verifyTokenDTO";
 import { VerifyTokenUseCase } from "./verifyTokenUseCase";
 
 export class VerifyTokenController {
-  async handle(req: Request, res: Response, next: NextFunction) {
+  constructor(
+    private verifyTokenUseCase: VerifyTokenUseCase
+  ){}
+
+  async handle(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { token }: VerifyTokenDTO = req.body;
 
-    const verifyTokenUseCase = new VerifyTokenUseCase()
-
-    const tokenValided = await verifyTokenUseCase.execute({ token }) 
+    const tokenValided = await this.verifyTokenUseCase.execute({ token }) 
 
     req.params.token = tokenValided
     next()

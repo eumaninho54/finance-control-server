@@ -1,9 +1,6 @@
 import { Router } from "express";
-import { VerifyTokenController } from '../modules/auth/useCases/verifyToken/verifyTokenController';
-import { CreateTransactionController } from "../modules/transactions/useCases/createTransaction/createTransactionController";
-
-const createTransactionController = new CreateTransactionController()
-const verifyTokenController = new VerifyTokenController()
+import { verifyTokenController } from "../modules/auth/useCases/verifyToken";
+import { createTransactionController } from "../modules/transactions/useCases/createTransaction";
 
 export const transactionRoutes = Router()
 

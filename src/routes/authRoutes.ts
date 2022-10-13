@@ -1,11 +1,7 @@
-import { GetAdminController } from '../modules/auth/useCases/getAdmin/getAdminController';
-import { LoginAdminController } from '../modules/auth/useCases/loginAdmin/loginAdminController';
 import { Router } from "express";
-import { VerifyTokenController } from '../modules/auth/useCases/verifyToken/verifyTokenController';
-
-const loginAdminController = new LoginAdminController()
-const verifyTokenController = new VerifyTokenController()
-const getAdminController = new GetAdminController()
+import { getAdminController } from '../modules/auth/useCases/getAdmin';
+import { verifyTokenController } from '../modules/auth/useCases/verifyToken';
+import { loginAdminController } from '../modules/auth/useCases/loginAdmin';
 
 export const authRoutes = Router()
 

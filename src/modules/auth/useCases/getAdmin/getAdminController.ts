@@ -3,12 +3,14 @@ import { GetAdminDTO } from "../../dtos/getAdminDTO";
 import { GetAdminUseCase } from "./getAdminUseCase";
 
 export class GetAdminController {
-  async handle(req: Request, res: Response) {
+  constructor(
+    private getAdminUseCase: GetAdminUseCase
+  ){}
+
+  async handle(req: Request, res: Response): Promise<Response> {
     const { token }: GetAdminDTO = req.body;
 
-    const getAdminUseCase = new GetAdminUseCase()
-
-    const result = await getAdminUseCase.execute({ token }) 
+    const result = await this.getAdminUseCase.execute({ token }) 
 
     return res.status(201).json(result);
   }

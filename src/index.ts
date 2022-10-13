@@ -29,4 +29,4 @@ app.use((err: Error, request: express.Request, response: Response) => {
   })
 })
 
-app.listen(process.env.PORT || 3333);
+app.listen(process.env.PORT || 3333, () => console.log("Working"));
