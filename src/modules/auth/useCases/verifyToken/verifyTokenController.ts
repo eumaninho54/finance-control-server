@@ -8,7 +8,7 @@ export class VerifyTokenController {
   ){}
 
   async handle(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { token }: VerifyTokenDTO = req.body;
+    const token = req.header("x-access-token");
 
     const tokenValided = await this.verifyTokenUseCase.execute({ token }) 
 

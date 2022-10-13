@@ -4,4 +4,6 @@ import { createTransactionController } from "../modules/transactions/useCases/cr
 
 export const transactionRoutes = Router()
 
-transactionRoutes.post("/new", verifyTokenController.handle, createTransactionController.handle)
+transactionRoutes.post("/new", 
+  (res, req, next) => verifyTokenController.handle(res, req, next), 
+  (res, req, next) => createTransactionController.handle(res, req))

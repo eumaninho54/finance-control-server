@@ -6,10 +6,10 @@ import { LoginAdminDTO } from "../../dtos/loginAdminDTO";
 
 export class LoginAdminUseCase {
   async execute({ username, password }: LoginAdminDTO) {
-    const hashPassword = crypto.HmacSHA1(password, "password").toString()
+    const hashPasswordToVerif = crypto.HmacSHA1(password, "password").toString()
+    const hashPassowordEnv = crypto.HmacSHA1(process.env.ADMIN_PASSWORD, "password").toString()
 
-    //Verify if exist user with param id
-    if(username != process.env.ADMIN_USER || password != process.env.ADMIN_PASSWORD){
+    if(username != process.env.ADMIN_USER || hashPasswordToVerif != hashPassowordEnv){
       throw new AppError("Login error!");
     }
 

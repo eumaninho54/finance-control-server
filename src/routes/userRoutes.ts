@@ -4,4 +4,6 @@ import { createUserController } from "../modules/users/useCases/createUser";
 
 export const userRoutes = Router()
 
-userRoutes.post("/new", verifyTokenController.handle, createUserController.handle)
+userRoutes.post("/new", 
+  (res, req, next) => verifyTokenController.handle(res, req, next), 
+  (res, req, next) => createUserController.handle(res, req))
