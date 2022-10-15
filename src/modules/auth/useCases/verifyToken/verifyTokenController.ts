@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { VerifyTokenDTO } from "../../dtos/verifyTokenDTO";
 import { VerifyTokenUseCase } from "./verifyTokenUseCase";
 
 export class VerifyTokenController {

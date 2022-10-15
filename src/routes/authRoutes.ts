@@ -5,7 +5,7 @@ import { verifyTokenController } from "../modules/auth/useCases/verifyToken";
 
 export const authRoutes = Router()
 
-authRoutes.get("/", 
+authRoutes.post("/", 
   (res, req, next) => verifyTokenController.handle(res, req, next), 
   (res, req, next) => getAdminController.handle(res, req))
 

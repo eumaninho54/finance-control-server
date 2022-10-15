@@ -10,9 +10,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use(routes);
-
 app.use(cors());
+
+app.use(routes);
 
 // Error Handling
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
