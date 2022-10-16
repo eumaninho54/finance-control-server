@@ -8,9 +8,9 @@ export class CreateTransactionController {
   ){}
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { id, value, reason }: CreateTransactionDTO = req.body;
+    const { id, reason, valueTransaction }: CreateTransactionDTO = req.body;
 
-    const result = await this.createTransactionUseCase.execute({ id, value, reason }) 
+    const result = await this.createTransactionUseCase.execute({ id, reason, valueTransaction }) 
 
     return res.status(201).json(result);
   }
