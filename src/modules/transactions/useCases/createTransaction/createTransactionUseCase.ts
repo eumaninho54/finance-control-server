@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import * as crypto from "crypto-js";
 import * as jwt from "jsonwebtoken";
 import { CreateTransactionDTO } from "../../dtos/createTransactionDTO";
-import { prisma } from "../../../../config/prismaClient";
 import { AppError } from "../../../../errors/appError";
+import { prisma } from "../../../../config/prismaClient";
 
 export class CreateTransactionUseCase {
-  async execute({ id, input_value, output_value }: CreateTransactionDTO) {
+  async execute({ id, value, reason }: CreateTransactionDTO) {
     
     //Verify if exist user with param id
     const userExists = await prisma.user.findUnique({
@@ -22,8 +22,9 @@ export class CreateTransactionUseCase {
     //Create new transaction of user
     const transaction = await prisma.transaction.create({
       data: {
-        input_value: input_value,
-        output_value: output_value,
+        value: value,
+        release_date: new Date(),
+        reason: reason,
         user: {
           connect: {
             id: 5,

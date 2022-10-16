@@ -13,17 +13,19 @@ datasource db {
 model User {
   id           Int           @id @default(autoincrement())
   name         String
+  total_money  Int
   transactions Transaction[] @relation("userTransactions")
 
   @@map("user")
 }
 
 model Transaction {
-  id           Int     @id @default(autoincrement())
-  user         User    @relation("userTransactions", fields: [userId], references: [id])
+  id           Int      @id @default(autoincrement())
+  user         User     @relation("userTransactions", fields: [userId], references: [id])
   userId       Int
-  input_value  Decimal
-  output_value Decimal
+  value        Decimal
+  reason       String 
+  release_date DateTime @db.Date
 
-  @@map("transitions")
+  @@map("transactions")
 }
