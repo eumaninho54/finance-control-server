@@ -1,19 +1,11 @@
+import { DeleteUserDTO } from './../../dtos/deleteUserDTO';
 import { prisma } from "../../../../config/prismaClient";
 import { AppError } from "../../../../errors/appError";
-import { CreateUserDTO } from "../../dtos/createUserDTO";
 
-export class CreateUserUseCase {
-  async execute({ name, total_money }: CreateUserDTO) {
-    
-    //Create new user
-    await prisma.user.create({
-      data: {
-        name: name,
-        total_money: total_money
-      }
-    })
-
-    //Create init transaction
+export class DeleteUsersUseCase {
+  async execute({ id }: DeleteUserDTO) {
+    //Delete user where id have in array ids
+    await prisma.user.deleteMany({where: {id: {in: id}}})
 
     const users = await Promise.all((await prisma.user.findMany()).map(async (user) => {
       const transactions = await prisma.transaction.findMany({where: {userId: user.id}})

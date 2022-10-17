@@ -11,7 +11,6 @@ DROP TABLE "User";
 CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "total_money" INTEGER NOT NULL,
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
