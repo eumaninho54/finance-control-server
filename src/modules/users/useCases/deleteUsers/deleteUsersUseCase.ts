@@ -5,7 +5,16 @@ import { AppError } from "../../../../errors/appError";
 export class DeleteUsersUseCase {
   async execute({ id }: DeleteUserDTO) {
     //Delete user where id have in array ids
-    await prisma.user.deleteMany({where: {id: {in: id}}})
+    await prisma.user.deleteMany({
+      where: {
+        id: { 
+          in: id 
+        } 
+      },
+    
+    })
+ 
+    console.log("foi")
 
     const users = await Promise.all((await prisma.user.findMany()).map(async (user) => {
       const transactions = await prisma.transaction.findMany({where: {userId: user.id}})

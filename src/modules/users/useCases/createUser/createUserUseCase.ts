@@ -3,17 +3,21 @@ import { AppError } from "../../../../errors/appError";
 import { CreateUserDTO } from "../../dtos/createUserDTO";
 
 export class CreateUserUseCase {
-  async execute({ name, total_money }: CreateUserDTO) {
+  async execute({ name, initialValue }: CreateUserDTO) {
     
-    //Create new user
+    //Create new user and initial transaction
     await prisma.user.create({
       data: {
         name: name,
-        total_money: total_money
+        transactions: { 
+          create: { 
+            reason: "Inicial", 
+            release_date: new Date(), 
+            value: initialValue
+          }
+        }
       }
     })
-
-    //Create init transaction
 
     const users = await Promise.all((await prisma.user.findMany()).map(async (user) => {
       const transactions = await prisma.transaction.findMany({where: {userId: user.id}})

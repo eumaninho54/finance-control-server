@@ -8,9 +8,9 @@ export class CreateUserController {
   ){}
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { name, total_money }: CreateUserDTO = req.body;
+    const { name, initialValue }: CreateUserDTO = req.body;
 
-    const result = await this.createUserUseCase.execute({ name, total_money }) 
+    const result = await this.createUserUseCase.execute({ name, initialValue }) 
 
     return res.status(201).json(result);
   }
