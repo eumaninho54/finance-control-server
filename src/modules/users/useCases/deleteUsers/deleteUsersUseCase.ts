@@ -13,8 +13,6 @@ export class DeleteUsersUseCase {
       },
     
     })
- 
-    console.log("foi")
 
     const users = await Promise.all((await prisma.user.findMany()).map(async (user) => {
       const transactions = await prisma.transaction.findMany({where: {userId: user.id}})
@@ -33,7 +31,7 @@ export class DeleteUsersUseCase {
         output_value: output_value,
         last_value: transactions[0] ? transactions[transactions.length - 1].value : 0,
         last_reason: transactions[0] ? transactions[transactions.length - 1].reason : "Sem transação",
-        total_money: input_value - output_value,
+        total_money: input_value + output_value,
         transactions: transactions
       }
     }))
