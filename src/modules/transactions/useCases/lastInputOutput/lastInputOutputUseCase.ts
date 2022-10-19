@@ -9,8 +9,6 @@ export class LastInputOutputUseCase {
   async execute() {
     const transactions: {input: number, output: number} = {input: 0, output: 0}
 
-    console.log(await prisma.transaction.findMany())
-
     //Last transaction with input value
     const input = Number((await prisma.transaction.findFirst({
       where: {
@@ -35,7 +33,6 @@ export class LastInputOutputUseCase {
     ? transactions.output = output
     : transactions.output = 0
 
-    console.log(transactions)
     return transactions
   }
 }

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "transactions" ALTER COLUMN "release_date" SET DEFAULT CURRENT_TIMESTAMP,
+ALTER COLUMN "release_date" SET DATA TYPE TIMESTAMP(3);

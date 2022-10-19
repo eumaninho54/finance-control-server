@@ -24,7 +24,7 @@ model Transaction {
   userId       Int
   value        Decimal
   reason       String 
-  release_date DateTime @db.Date
+  release_date DateTime @default(now())
 
   @@map("transactions")
 }
