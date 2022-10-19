@@ -8,7 +8,7 @@ export class GetAdminController {
   ){}
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { token }: GetAdminDTO = req.body;
+    const token = req.params.token;
 
     const result = await this.getAdminUseCase.execute({ token }) 
 
