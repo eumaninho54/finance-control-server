@@ -1,8 +1,3 @@
-import { ITransactions } from './../../dtos/getTransactionsDTO';
-import { Request, Response } from "express";
-import * as crypto from "crypto-js";
-import * as jwt from "jsonwebtoken";
-import { CreateTransactionDTO } from "../../dtos/createTransactionDTO";
 import { AppError } from "../../../../errors/appError";
 import { prisma } from "../../../../config/prismaClient";
 import { GetTransactionsDTO } from "../../dtos/getTransactionsDTO";

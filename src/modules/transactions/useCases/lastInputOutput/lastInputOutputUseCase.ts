@@ -4,35 +4,67 @@ import * as jwt from "jsonwebtoken";
 import { CreateTransactionDTO } from "../../dtos/createTransactionDTO";
 import { AppError } from "../../../../errors/appError";
 import { prisma } from "../../../../config/prismaClient";
+import { ILastInputOutput } from "../../dtos/lastInputOutputDTO";
 
 export class LastInputOutputUseCase {
   async execute() {
-    const transactions: {input: number, output: number} = {input: 0, output: 0}
+    let transactions: ILastInputOutput = {
+      input: {
+        user: 'Sem transacao',
+        value: 0,
+        release_date: null
+      },
+      output: {
+        user: 'Sem transacao',
+        value: 0,
+        release_date: null
+      }
+    };
 
     //Last transaction with input value
-    const input = Number((await prisma.transaction.findFirst({
+    const transactionInput = await prisma.transaction.findFirst({
       where: {
         value: { gt: 0 }
       },
       orderBy: { release_date: 'desc' }
-    })).value)
+    })
 
-    input > 0
-    ? transactions.input = input
-    : transactions.input = 0
+    const userInput = await prisma.user.findFirst({
+      where: {
+        id: transactionInput.userId
+      }
+    })
+
+    if(Number(transactionInput.value) > 0){
+      transactions.input = {
+        user: userInput.name, 
+        value: Number(transactionInput.value),
+        release_date: transactionInput.release_date
+      }
+    }
 
     //Last transaction with output value
-    const output = Number((await prisma.transaction.findFirst({
+    const transactionOutput = await prisma.transaction.findFirst({
       where: {
         value: { lt: 0 }
       },
       orderBy: { release_date: 'desc' }
-    })).value)
+    })
 
-    output < 0
-    ? transactions.output = output
-    : transactions.output = 0
+    const userOutput = await prisma.user.findFirst({
+      where: {
+        id: transactionOutput.userId
+      }
+    })
 
+    if(Number(transactionOutput.value) < 0){
+      transactions.output = {
+        user: userOutput.name,
+        value: Number(transactionOutput.value),
+        release_date: transactionOutput.release_date
+      }
+    }
+    
     return transactions
   }
 }
