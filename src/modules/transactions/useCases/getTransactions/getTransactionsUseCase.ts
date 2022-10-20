@@ -1,0 +1,44 @@
+import { ITransactions } from './../../dtos/getTransactionsDTO';
+import { Request, Response } from "express";
+import * as crypto from "crypto-js";
+import * as jwt from "jsonwebtoken";
+import { CreateTransactionDTO } from "../../dtos/createTransactionDTO";
+import { AppError } from "../../../../errors/appError";
+import { prisma } from "../../../../config/prismaClient";
+import { GetTransactionsDTO } from "../../dtos/getTransactionsDTO";
+
+export class GetTransactionsUseCase {
+  async execute({ textFilter }: GetTransactionsDTO) {
+    // Search Filter by username or reason
+    const findTransactions = await prisma.transaction.findMany({
+      where: {
+        OR: [
+          {
+            user: {
+              name: {contains: textFilter, mode: 'insensitive'}
+            }
+          },
+          {
+            reason: { contains: textFilter, mode: 'insensitive'}
+          }
+        ]
+      },
+      orderBy: { release_date: 'desc' },
+      take: 5
+    })
+   
+    return await Promise.all(findTransactions.map(async (transaction) => {
+      const user = await prisma.user.findFirst({
+        where: {id: transaction.userId}
+      })
+  
+      return {
+        id: transaction.id,
+        name: user.name,
+        reason: transaction.reason,
+        release_date: transaction.release_date,
+        value: Number(transaction.value)
+      }
+    }))
+  }
+}
