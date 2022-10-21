@@ -4,11 +4,11 @@ import * as jwt from "jsonwebtoken";
 import { CreateTransactionDTO } from "../../dtos/createTransactionDTO";
 import { AppError } from "../../../../errors/appError";
 import { prisma } from "../../../../config/prismaClient";
-import { ILastInputOutput } from "../../dtos/lastInputOutputDTO";
+import { IInfoTransactions } from "../../dtos/infoTransactionsDTO";
 
-export class LastInputOutputUseCase {
+export class InfoTransactionsUseCase {
   async execute() {
-    let transactions: ILastInputOutput = {
+    let transactions: IInfoTransactions = {
       input: {
         user: 'Sem transacao',
         value: 0,

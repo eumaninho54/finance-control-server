@@ -1,4 +1,4 @@
-export interface ILastInputOutput {
+export interface IInfoTransactions {
   input: {
     user: string;
     value: number;

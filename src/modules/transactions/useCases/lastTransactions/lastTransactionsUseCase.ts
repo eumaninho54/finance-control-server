@@ -1,9 +1,9 @@
 import { AppError } from "../../../../errors/appError";
 import { prisma } from "../../../../config/prismaClient";
-import { GetTransactionsDTO } from "../../dtos/getTransactionsDTO";
+import { LastTransactionsDTO } from "../../dtos/LastTransactionsDTO";
 
-export class GetTransactionsUseCase {
-  async execute({ textFilter }: GetTransactionsDTO) {
+export class LastTransactionsUseCase {
+  async execute({ textFilter }: LastTransactionsDTO) {
     // Search Filter by username or reason
     const findTransactions = await prisma.transaction.findMany({
       where: {
